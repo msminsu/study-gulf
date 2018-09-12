@@ -78,8 +78,8 @@ gulp.task('dev', ()=>{
     compileJS();
     compileSass();
 // console.log(`${paths.local}`, '--------------check-----------')
-    // watch(`${paths.local}/src/js/**/*.js`,compileJS);
-    // watch(`${paths.local}/src/sass/**/*.scss`, compileSass);
+    watch(`${paths.local}/src/js/**/*.js`,compileJS);
+    watch(`${paths.local}/src/sass/**/*.scss`, compileSass);
 }); // gulp 를 실행하면 default 로 js:combine task, scss:compile task 그리고 watch task 를 실행하도록 한다. 
 
 
