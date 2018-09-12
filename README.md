@@ -1,8 +1,6 @@
 # study-gulp
 
 ## step-01 : gulp 설치방법, 간단한 task 작성 실행
-gulp 연습
-
 자동화 빌드 시스템 : start Gulp
 
 gulp로 할 수 있는것
@@ -33,7 +31,7 @@ node package manager: NPM   node.js 기반의 패키지 모듈들을 관리하�
 
 
 ~~~c
->gulp 
+$gulp 
 Local gulp not found in D:\My-Lab\study-gulp
 Try running: npm install gulp
 ~~~
@@ -62,21 +60,62 @@ gulp.task('default',function(){
 });
 ```
 ~~~
-> gulp deafult 
+$gulp deafult 
 ~~~
  cil 명령으로 실행
 
-## step-02 : Gulp 사용법
+## step-02 : Gulpfile 기본 문법구조, gulp-concat 사용
 
 
 
 gulp  사용전 기본적으로 package.json 과 gulpfile.js 생성 
 
 디렉토리 생성 src(최적화 전 리소스들), dist(빌드된 파일들) 폴더 생성하기
+~~~c
+var gulp = require('gulp');// Gulp 모듈 호출
+var concat = require('gulp-concat')// Gulp concat 모듈 호출 : 파일을 병합해주는 플러그인
+
+// task 정의 
+
+gulp.task('comfile:js', ['lint-js'],function(){
+    return gulp.src('/project/js/**/*.js') // 또는 배열데이터 형식으로 추가
+    .pipe(concat('scriptAll.js'))  // scriptAll.js 하나의 파일로 압축
+    .pipe(gulp.dest('project/dist/js'));   
+});
+
+gulp.task('default', ['comfile:js']);  // cli gulp 명령어만 입력하면 comfile:js task가 실행, 두번째 인자인 []의 선행파일 실행
+~~~
+
+
+**gulp.task(name, deps, func)** : 메서드 - 수행할 작업 정의 
+
+- name: task 이름 지정
+- deps: 현재 선언한 task를 수행하기전  실행되야하는 task 배열 목록. 위에서 lint-js(js 문법검사)를 먼저 요청 , lint-js 정의도 현재 task보다 앞에 선언! 선행  task가 없으면 생략가능!!
+- func: 수행할 내용 정의 
+
+
+**gulp.src(files)** : task실행 작업 파일들의 경로를 배열 데이터 형식(또는 string)으로 작성
+```c
+js/**/*.js  // js폴더안의 모든 폴더의 모든 js파일 지정
+
+gulp.src([ 'project/js/nav.js', 'project//js/B/*.js', '!project/src/js/C/app.js' ]);
+// 배열 예
+// 파일 병합에 있어서  특정 파일이 먼저 병합되기를 원할때는 배열 타입으로 먼저 선언
+// ! 표는 포함하지 말라는 표시
+
+```
+**gulp.pipe(...)** : 메서드 - 수행할 플러그인과연결, 체이닝으로 여러개 연결해서 사용
+
+**gulp.dest()** : 해당 task 결과물이 저장될 경로 지정
 
 
 ~~~c
 $npm install gulp-concat -D
 ~~~
+~~~c
+$npm install gulp-concat gulp-uglify gulp-sass gulp-livereload --save-dev //여러개 한번에 설치시
+~~~
 gulp-concat 패키지 모듈을 사용하기 위해 설치
+
+## step-03 :  gulp-sass, gulp-sourcemap, gulp-watch,gulp-autoprefixer
 

@@ -3,10 +3,11 @@ var concat = require('gulp-concat')// Gulp concat 모듈 호출
 
 // task 정의 
 
-gulp.task('comfile:js', ['lint-js'],function(){
-    return gulp.src('/project/js/**/*.js')
+gulp.task('comfile:js',function(){
+    console.log('comfile 진행중....')
+    return gulp.src('js/**/*.js')
     .pipe(concat('scriptAll.js'))
-    .pipe(gulp.dest('project/dist/js'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('default', ['comfile:js']);
