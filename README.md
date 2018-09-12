@@ -1,2 +1,2 @@
-# study-gulf
-gulf 연습
+# study-gulp
+gulp 연습
